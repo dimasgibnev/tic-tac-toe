@@ -1,13 +1,16 @@
-import styles from './InformationLayout.module.css'
-export const InformationLayout = (props) => {
-	const { currentPlayer, isDraw, isGameEnded } = props;
+import styles from './InformationLayout.module.css';
+export const InformationLayout = ({ currentPlayer, isDraw, isGameEnded }) => {
 	return (
-		<>
-			<div className={styles.information}>
+		<div className={styles.information}>
+			<p className={styles['information__text']}>
 				{isDraw
-					?  isGameEnded ? `Победил игрок: ${currentPlayer}` : 'Ничья'
-					: `Ходит игрок : ${currentPlayer}`}
-			</div>
-		</>
+					? isGameEnded
+						? 'Ничья'
+						: ''
+					: isGameEnded
+						? `Победил игрок: ${currentPlayer}`
+						: `Ходит игрок: ${currentPlayer}`}
+			</p>
+		</div>
 	);
 };

@@ -1,11 +1,13 @@
 import styles from './FieldLayout.module.css';
 
-export const FieldLayout = ({field, setField}) => {
+export const FieldLayout = ({ field, handleClick }) => {
 	return (
-		<ul className={styles.field}>
+		<div className={styles.field}>
 			{field.map((cell, i) => (
-				<li>{cell}</li>
+				<li key={i} className={styles['field__cell']} onClick={() => handleClick(i)}>
+					{cell}
+				</li>
 			))}
-		</ul>
+		</div>
 	);
 };

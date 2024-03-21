@@ -1,4 +1,13 @@
 .information {
-	width: 30%;
-
+	background-color: #ddd;
+	height: 20%;
+	width: 100%;
+	padding: 10px;
+	text-align: center;
 }
+
+.information__text {
+	display: block;
+	margin-bottom: 5px;
+}
+

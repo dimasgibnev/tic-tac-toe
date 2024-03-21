@@ -1,19 +1,23 @@
 import { Field } from '../Field';
 import { Information } from '../Information';
-import styles from './GameLayout.module.css'
+import styles from './GameLayout.module.css';
 
 export const GameLayout = (props) => {
-	const {
-		field,
-		setField,
-		...rest
-	} = props;
 	return (
 		<div className={styles.game}>
-			<Field field={field} setField={setField} />
-			<Information
-				{...rest}
-			/>
+			<Field {...props} />
+			<div className="game__information">
+				<Information {...props} />
+				{props.isGameEnded && (
+					<button
+						className={styles['game__start-button']}
+						type="text"
+						onClick={props.startAgain}
+					>
+						Начать заново
+					</button>
+				)}
+			</div>
 		</div>
 	);
 };

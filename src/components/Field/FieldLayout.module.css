@@ -1,4 +1,16 @@
 .field {
+	display: flex;
+	font-size: 100px;
+	flex-flow: row wrap;
+	width: 400px;
+}
+
+.field__cell {
+	background-color: #ddd;
+	display: block;
 	list-style: none;
-	width: 70%;
+	border: 1px solid black;
+	width: 33%;
+	text-align: center;
+	cursor: pointer;
 }
