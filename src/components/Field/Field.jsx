@@ -12,5 +12,5 @@ export const Field = ({ handleClick, field}) => {
 
 Field.propTypes = {
 	field: PropTypes.array,
-	handleClick: PropTypes.object,
+	handleClick: PropTypes.func,
 };

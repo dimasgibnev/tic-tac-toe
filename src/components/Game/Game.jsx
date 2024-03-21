@@ -21,14 +21,18 @@ export const Game = () => {
 	];
 
 	function handleClick(index) {
-		if (!isGameEnded) {
+		if (!isGameEnded && field[index] === '') {
 			if (currentPlayer === 'X') {
 				setField((prev) =>
-					prev.map((e, i) => (index === i && prev[i] !== '0' ? 'X' : e)),
+					prev.map((e, i) =>
+						index === i && prev[i] !== '0' && prev[i] !== 'X' ? 'X' : e,
+					),
 				);
 			} else {
 				setField((prev) =>
-					prev.map((e, i) => (index === i && prev[i] !== 'X' ? '0' : e)),
+					prev.map((e, i) =>
+						index === i && prev[i] !== '0' && prev[i] !== 'X' ? '0' : e,
+					),
 				);
 			}
 			currentPlayer === 'X' ? setCurrentPlayer('0') : setCurrentPlayer('X');
