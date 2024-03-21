@@ -5,9 +5,9 @@ export const Field = (props) => {
 
 function handleClick(index) {
 	if (currentPlayer === 'X') {
-		setField()
+		setField(prev => prev.map((e, i) => index === i && prev[i] !== '0' ? 'X' : e))
 	} else {
-		setField()
+		setField(prev => prev.map((e, i) => index === i && prev[i] !== 'X' ? '0' : e))
 	}
 }
 	return (
