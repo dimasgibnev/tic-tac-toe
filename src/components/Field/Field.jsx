@@ -1,18 +1,16 @@
+import PropTypes from 'prop-types';
 import { FieldLayout } from './FieldLayout';
 
-export const Field = (props) => {
-	const { setField, currentPlayer} = props
+export const Field = ({ handleClick, field}) => {
 
-function handleClick(index) {
-	if (currentPlayer === 'X') {
-		setField(prev => prev.map((e, i) => index === i && prev[i] !== '0' ? 'X' : e))
-	} else {
-		setField(prev => prev.map((e, i) => index === i && prev[i] !== 'X' ? '0' : e))
-	}
-}
 	return (
 		<>
-			<FieldLayout {...props} handleClick={handleClick} />
+			<FieldLayout field={field} handleClick={handleClick} />
 		</>
 	);
+};
+
+Field.propTypes = {
+	field: PropTypes.array,
+	handleClick: PropTypes.object,
 };

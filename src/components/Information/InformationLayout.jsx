@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './InformationLayout.module.css';
 export const InformationLayout = ({ currentPlayer, isDraw, isGameEnded }) => {
 	return (
@@ -13,4 +14,10 @@ export const InformationLayout = ({ currentPlayer, isDraw, isGameEnded }) => {
 			</p>
 		</div>
 	);
+};
+
+InformationLayout.propTypes = {
+	currentPlayer: PropTypes.string,
+	isDraw: PropTypes.bool,
+	isGameEnded: PropTypes.bool,
 };
