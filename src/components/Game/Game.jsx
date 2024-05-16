@@ -1,76 +1,50 @@
 /* eslint-disable no-unused-expressions */
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { GameLayout } from './GameLayout';
+import { store } from '../../store';
+import { SET_DRAW, SET_END_GAME, SET_NEW_GAME } from '../../actions';
+import { gameData } from '../../state';
+import { addPlayer } from '../../utils';
+
+const WIN_PATTERNS = [
+	[0, 1, 2],
+	[3, 4, 5],
+	[6, 7, 8],
+	[0, 3, 6],
+	[1, 4, 7],
+	[2, 5, 8],
+	[0, 4, 8],
+	[2, 4, 6],
+];
 
 export const Game = () => {
-	const [currentPlayer, setCurrentPlayer] = useState('X');
-	const [isGameEnded, setIsGameEnded] = useState(false);
-	const [isDraw, setIsDraw] = useState(false);
-	const [field, setField] = useState(['', '', '', '', '', '', '', '', '']);
+	const { isGameEnded, currentPlayer, isDraw, field } = store.getState();
 
-	const WIN_PATTERNS = [
-		[0, 1, 2],
-		[3, 4, 5],
-		[6, 7, 8],
-		[0, 3, 6],
-		[1, 4, 7],
-		[2, 5, 8],
-		[0, 4, 8],
-		[2, 4, 6],
-	];
+	useEffect(() => {
+		store.dispatch({ type: SET_NEW_GAME, payload: gameData });
+	}, []);
 
-	function handleClick(index) {
-		if (!isGameEnded && field[index] === '') {
-			if (currentPlayer === 'X') {
-				setField((prev) =>
-					prev.map((e, i) =>
-						index === i && prev[i] !== '0' && prev[i] !== 'X' ? 'X' : e,
-					),
-				);
-			} else {
-				setField((prev) =>
-					prev.map((e, i) =>
-						index === i && prev[i] !== '0' && prev[i] !== 'X' ? '0' : e,
-					),
-				);
-			}
-			currentPlayer === 'X' ? setCurrentPlayer('0') : setCurrentPlayer('X');
-		}
-	}
+	// if (getWinner() && !isGameEnded) {
+	// 	store.dispatch({ type: SET_END_GAME, payload: true });
+	// 	currentPlayer === 'X'
+	// 		? store.dispatch(addPlayer('0'))
+	// 		: store.dispatch(addPlayer('X'));
+	// } else if (field.every((e) => e !== '') && !isDraw) {
+	// 	store.dispatch({ type: SET_DRAW, payload: true });
+	// 	store.dispatch({ type: SET_END_GAME, payload: true });
+	// }
 
-	function getWinner() {
-		return (
-			WIN_PATTERNS.some((pattern) => pattern.every((e) => field[e] === 'X')) ||
-			WIN_PATTERNS.some((pattern) => pattern.every((e) => field[e] === '0'))
-		);
-	}
-
-	if (getWinner() && !isGameEnded) {
-		setIsGameEnded(true);
-		currentPlayer === 'X' ? setCurrentPlayer('0') : setCurrentPlayer('X');
-	} else if (field.every((e) => e !== '') && !isDraw) {
-		setIsDraw(true);
-		setIsGameEnded(true);
-	}
-
-	function startAgain() {
-		setCurrentPlayer('X');
-		setIsGameEnded(false);
-		setIsDraw(false);
-		setField(['', '', '', '', '', '', '', '', '']);
-	}
+	// function getWinner() {
+	// 	return (
+	// 		WIN_PATTERNS.some((pattern) => pattern.every((e) => field[e] === 'X')) ||
+	// 		WIN_PATTERNS.some((pattern) => pattern.every((e) => field[e] === '0'))
+	// 	);
+	// }
 
 	return (
 		<>
-			<GameLayout
-				currentPlayer={currentPlayer}
-				isGameEnded={isGameEnded}
-				isDraw={isDraw}
-				field={field}
-				handleClick={handleClick}
-				startAgain={startAgain}
-			/>
+			<GameLayout />
 		</>
 	);
 };

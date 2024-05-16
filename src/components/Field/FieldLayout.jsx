@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
 import styles from './FieldLayout.module.css';
+import { store } from '../../store';
 
-export const FieldLayout = ({ field, handleClick }) => {
+export const FieldLayout = ({ handleClick }) => {
+	const { field } = store.getState();
+	console.log(field);
 	return (
 		<div className={styles.field}>
 			{field.map((cell, i) => (
@@ -18,6 +21,5 @@ export const FieldLayout = ({ field, handleClick }) => {
 };
 
 FieldLayout.propTypes = {
-	field: PropTypes.array,
 	handleClick: PropTypes.func,
 };

@@ -1,30 +1,24 @@
-import PropTypes from 'prop-types';
 import { Field } from '../Field';
 import { Information } from '../Information';
 import styles from './GameLayout.module.css';
+import { store } from '../../store';
+import {  SET_NEW_GAME} from '../../actions';
+import { gameData } from '../../state';
 
-export const GameLayout = ({
-	field,
-	handleClick,
-	currentPlayer,
-	isDraw,
-	isGameEnded,
-	startAgain,
-}) => {
+
+export const GameLayout = () => {
+	const { isGameEnded} = store.getState();
+
 	return (
 		<div className={styles.game}>
-			<Field field={field} handleClick={handleClick} />
+			<Field />
 			<div className="game__information">
-				<Information
-					currentPlayer={currentPlayer}
-					isDraw={isDraw}
-					isGameEnded={isGameEnded}
-				/>
+				<Information/>
 				{isGameEnded && (
 					<button
 						className={styles['game__start-button']}
 						type="text"
-						onClick={startAgain}
+						onClick={() => store.dispatch({ type: SET_NEW_GAME, payload: gameData })}
 					>
 						Начать заново
 					</button>
@@ -34,11 +28,3 @@ export const GameLayout = ({
 	);
 };
 
-GameLayout.propTypes = {
-	field: PropTypes.array,
-	handleClick: PropTypes.func,
-	currentPlayer: PropTypes.string,
-	isDraw: PropTypes.bool,
-	isGameEnded: PropTypes.bool,
-	startAgain: PropTypes.func,
-};
