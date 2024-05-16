@@ -5,10 +5,9 @@ import {
 	SET_NEW_GAME,
 	SET_NEW_PLAYER,
 } from './actions';
+import { gameData } from './state';
 
-const initialState = {};
-
-export const appReducer = (state = initialState, action) => {
+export const appReducer = (state = gameData, action) => {
 	const { type, payload } = action;
 
 	switch (type) {

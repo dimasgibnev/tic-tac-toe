@@ -21,26 +21,26 @@ const WIN_PATTERNS = [
 export const Game = () => {
 	const { isGameEnded, currentPlayer, isDraw, field } = store.getState();
 
-	useEffect(() => {
-		store.dispatch({ type: SET_NEW_GAME, payload: gameData });
-	}, []);
+	// useEffect(() => {
+	// 	store.dispatch({ type: SET_NEW_GAME, payload: gameData });
+	// }, []);
 
-	// if (getWinner() && !isGameEnded) {
-	// 	store.dispatch({ type: SET_END_GAME, payload: true });
-	// 	currentPlayer === 'X'
-	// 		? store.dispatch(addPlayer('0'))
-	// 		: store.dispatch(addPlayer('X'));
-	// } else if (field.every((e) => e !== '') && !isDraw) {
-	// 	store.dispatch({ type: SET_DRAW, payload: true });
-	// 	store.dispatch({ type: SET_END_GAME, payload: true });
-	// }
+	if (getWinner() && !isGameEnded) {
+		store.dispatch({ type: SET_END_GAME, payload: true });
+		currentPlayer === 'X'
+			? store.dispatch(addPlayer('0'))
+			: store.dispatch(addPlayer('X'));
+	} else if (field.every((e) => e !== '') && !isDraw) {
+		store.dispatch({ type: SET_DRAW, payload: true });
+		store.dispatch({ type: SET_END_GAME, payload: true });
+	}
 
-	// function getWinner() {
-	// 	return (
-	// 		WIN_PATTERNS.some((pattern) => pattern.every((e) => field[e] === 'X')) ||
-	// 		WIN_PATTERNS.some((pattern) => pattern.every((e) => field[e] === '0'))
-	// 	);
-	// }
+	function getWinner() {
+		return (
+			WIN_PATTERNS.some((pattern) => pattern.every((e) => field[e] === 'X')) ||
+			WIN_PATTERNS.some((pattern) => pattern.every((e) => field[e] === '0'))
+		);
+	}
 
 	return (
 		<>
