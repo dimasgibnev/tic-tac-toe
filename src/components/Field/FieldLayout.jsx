@@ -4,7 +4,7 @@ import { store } from '../../store';
 
 export const FieldLayout = ({ handleClick }) => {
 	const { field } = store.getState();
-	console.log(field);
+
 	return (
 		<div className={styles.field}>
 			{field.map((cell, i) => (

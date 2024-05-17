@@ -1,24 +1,24 @@
 import {appReducer} from './reducer'
-// import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
-// export const store = configureStore({
-// 	reducer: appReducer
-// });
+export const store = configureStore({
+	reducer: appReducer
+});
 
 
-// store.subscribe(() => console.log(store.getState()))
 
-const createStore = (reducer) => {
-	let state;
 
-	return {
-		dispatch: (action) => {
-			state = reducer(state, action);
-		},
-		getState: () => state
-	};
-};
+// const createStore = (reducer) => {
+// 	let state;
 
-export const store = createStore(appReducer)
+// 	return {
+// 		dispatch: (action) => {
+// 			state = reducer(state, action);
+// 		},
+// 		getState: () => state
+// 	};
+// };
 
-store.dispatch({})
+// export const store = createStore(appReducer)
+
+// store.dispatch({})

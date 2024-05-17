@@ -1,24 +1,22 @@
-import { Field } from '../Field';
-import { Information } from '../Information';
+import { Field } from '../Field/Field';
+import { Information } from '../Information/Information';
 import styles from './GameLayout.module.css';
 import { store } from '../../store';
-import {  SET_NEW_GAME} from '../../actions';
-import { gameData } from '../../state';
-
+import { setNewGame } from '../../actions';
 
 export const GameLayout = () => {
-	const { isGameEnded} = store.getState();
+	const { isGameEnded } = store.getState();
 
 	return (
 		<div className={styles.game}>
 			<Field />
-			<div className="game__information">
-				<Information/>
+			<div className={styles['game__information']}>
+				<Information />
 				{isGameEnded && (
 					<button
 						className={styles['game__start-button']}
 						type="text"
-						onClick={() => store.dispatch({ type: SET_NEW_GAME, payload: gameData })}
+						onClick={() => store.dispatch(setNewGame())}
 					>
 						Начать заново
 					</button>
@@ -27,4 +25,3 @@ export const GameLayout = () => {
 		</div>
 	);
 };
-

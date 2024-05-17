@@ -1,6 +1,5 @@
-import { SET_GAME_FIELD } from '../../actions';
+import { setGameField, setNewPlayer } from '../../actions';
 import { store } from '../../store';
-import { addPlayer, setField } from '../../utils';
 import { FieldLayout } from './FieldLayout';
 
 export const Field = () => {
@@ -9,19 +8,13 @@ export const Field = () => {
 
 		if (!isGameEnded && field[index] === '') {
 			if (currentPlayer === 'X') {
-				store.dispatch({
-					type: SET_GAME_FIELD,
-					payload: setField(field, 'X', index),
-				});
+				store.dispatch(setGameField(field, 'X', index));
 			} else {
-				store.dispatch({
-					type: SET_GAME_FIELD,
-					payload: setField(field, '0', index),
-				});
+				store.dispatch(setGameField(field, '0', index));
 			}
 			currentPlayer === 'X'
-				? store.dispatch(addPlayer('0'))
-				: store.dispatch(addPlayer('X'));
+				? store.dispatch(setNewPlayer('0'))
+				: store.dispatch(setNewPlayer('X'));
 		}
 	};
 

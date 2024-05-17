@@ -1,18 +1,18 @@
 import {
+	SET_NEW_PLAYER,
 	SET_DRAW,
 	SET_END_GAME,
 	SET_GAME_FIELD,
 	SET_NEW_GAME,
-	SET_NEW_PLAYER,
-} from './actions';
-import { gameData } from './state';
+} from './constants';
+import { defaultState } from './state';
 
-export const appReducer = (state = gameData, action) => {
+export const appReducer = (state = defaultState, action) => {
 	const { type, payload } = action;
 
 	switch (type) {
 		case SET_NEW_GAME: {
-			return payload;
+			return {...payload};
 		}
 		case SET_NEW_PLAYER: {
 			return {...state, currentPlayer: payload};
