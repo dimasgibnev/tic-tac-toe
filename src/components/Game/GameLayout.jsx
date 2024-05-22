@@ -1,11 +1,12 @@
 import { Field } from '../Field/Field';
 import { Information } from '../Information/Information';
 import styles from './GameLayout.module.css';
-import { store } from '../../store';
 import { setNewGame } from '../../actions';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const GameLayout = () => {
-	const { isGameEnded } = store.getState();
+	const { isGameEnded } = useSelector((state) => state);
+	const dispatch = useDispatch();
 
 	return (
 		<div className={styles.game}>
@@ -16,7 +17,7 @@ export const GameLayout = () => {
 					<button
 						className={styles['game__start-button']}
 						type="text"
-						onClick={() => store.dispatch(setNewGame())}
+						onClick={() => dispatch(setNewGame())}
 					>
 						Начать заново
 					</button>

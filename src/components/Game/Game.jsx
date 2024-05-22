@@ -1,21 +1,19 @@
 /* eslint-disable no-unused-expressions */
 import { GameLayout } from './GameLayout';
-import { store } from '../../store';
 import { setDraw, setEndGame, setNewPlayer } from '../../actions';
 import { WIN_PATTERNS } from '../../constants';
-
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Game = () => {
-	const { isGameEnded, currentPlayer, isDraw, field } = store.getState();
+	const { isGameEnded, currentPlayer, isDraw, field } = useSelector((state) => state);
+	const dispatch = useDispatch();
 
 	if (getWinner() && !isGameEnded) {
-		store.dispatch(setEndGame(true));
-		currentPlayer === 'X'
-			? store.dispatch(setNewPlayer('0'))
-			: store.dispatch(setNewPlayer('X'));
+		dispatch(setEndGame(true));
+		currentPlayer === 'X' ? dispatch(setNewPlayer('0')) : dispatch(setNewPlayer('X'));
 	} else if (field.every((e) => e !== '') && !isDraw) {
-		store.dispatch(setDraw(true));
-		store.dispatch(setEndGame(true));
+		dispatch(setDraw(true));
+		dispatch(setEndGame(true));
 	}
 
 	function getWinner() {

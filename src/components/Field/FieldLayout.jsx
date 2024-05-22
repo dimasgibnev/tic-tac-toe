@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import styles from './FieldLayout.module.css';
-import { store } from '../../store';
+import { useSelector } from 'react-redux';
 
 export const FieldLayout = ({ handleClick }) => {
-	const { field } = store.getState();
+	const { field } = useSelector((state) => state);
 
 	return (
 		<div className={styles.field}>

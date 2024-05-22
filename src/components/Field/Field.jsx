@@ -1,20 +1,21 @@
 import { setGameField, setNewPlayer } from '../../actions';
-import { store } from '../../store';
 import { FieldLayout } from './FieldLayout';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Field = () => {
-	const handleClick = (index) => {
-		const { isGameEnded, field, currentPlayer } = store.getState();
+	const { isGameEnded, field, currentPlayer } = useSelector((state) => state);
+	const dispatch = useDispatch();
 
+	const handleClick = (index) => {
 		if (!isGameEnded && field[index] === '') {
 			if (currentPlayer === 'X') {
-				store.dispatch(setGameField(field, 'X', index));
+				dispatch(setGameField(field, 'X', index));
 			} else {
-				store.dispatch(setGameField(field, '0', index));
+				dispatch(setGameField(field, '0', index));
 			}
 			currentPlayer === 'X'
-				? store.dispatch(setNewPlayer('0'))
-				: store.dispatch(setNewPlayer('X'));
+				? dispatch(setNewPlayer('0'))
+				: dispatch(setNewPlayer('X'));
 		}
 	};
 

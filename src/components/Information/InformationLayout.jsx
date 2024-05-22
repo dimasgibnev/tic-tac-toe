@@ -1,8 +1,8 @@
 import styles from './InformationLayout.module.css';
-import { store } from '../../store';
+import { useSelector } from 'react-redux';
 
 export const InformationLayout = () => {
-	const {isDraw, isGameEnded, currentPlayer } = store.getState()
+	const {isDraw, isGameEnded, currentPlayer } = useSelector((state) => state);
 
 	return (
 		<div className={styles.information}>
