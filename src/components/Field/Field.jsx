@@ -1,26 +1,42 @@
+import { Component } from 'react';
 import { setGameField, setNewPlayer } from '../../actions';
-import { store } from '../../store';
 import { FieldLayout } from './FieldLayout';
+import { connect } from 'react-redux';
+class FieldContainer extends Component {
+	constructor(props) {
+		super(props);
+		this.handleClick = this.handleClick.bind(this);
+	}
 
-export const Field = () => {
-	const handleClick = (index) => {
-		const { isGameEnded, field, currentPlayer } = store.getState();
-
-		if (!isGameEnded && field[index] === '') {
-			if (currentPlayer === 'X') {
-				store.dispatch(setGameField(field, 'X', index));
+	 handleClick  (index) {
+		if (!this.props.isGameEnded && this.props.field[index] === '') {
+			if (this.props.currentPlayer === 'X') {
+				this.props.dispatch(setGameField(this.props.field, 'X', index));
 			} else {
-				store.dispatch(setGameField(field, '0', index));
+				this.props.dispatch(setGameField(this.props.field, '0', index));
 			}
-			currentPlayer === 'X'
-				? store.dispatch(setNewPlayer('0'))
-				: store.dispatch(setNewPlayer('X'));
+			this.props.currentPlayer === 'X'
+				? this.props.dispatch(setNewPlayer('0'))
+				: this.props.dispatch(setNewPlayer('X'));
 		}
+
 	};
 
-	return (
-		<>
-			<FieldLayout handleClick={handleClick} />
-		</>
-	);
+	render () {
+		return (
+			<>
+				<FieldLayout handleClick={this.handleClick} />
+			</>
+		);
+	}
 };
+
+
+const mapStateToProps = (state) => ({
+	currentPlayer: state.currentPlayer,
+	isGameEnded: state.isGameEnded,
+	isDraw: state.isDraw,
+	field: state.field,
+})
+
+export const Field = connect(mapStateToProps)(FieldContainer)

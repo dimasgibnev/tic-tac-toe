@@ -1,25 +1,24 @@
-import PropTypes from 'prop-types';
-import styles from './FieldLayout.module.css';
-import { store } from '../../store';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 
-export const FieldLayout = ({ handleClick }) => {
-	const { field } = store.getState();
+class FieldLayoutContainer extends Component {
+	render() {
+		return (
+			<div className="flex flex-wrap flex-row text-8xl w-96">
+				{this.props.field.map((cell, i) => (
+					<li
+						key={i}
+						className="bg-slate-200 block list-none border border-solid border-black w-1/3 h-1/3 text-center cursor-pointer"
+						onClick={() => this.props.handleClick(i)}
+					>
+						{cell}
+					</li>
+				))}
+			</div>
+		);
+	}
+}
 
-	return (
-		<div className={styles.field}>
-			{field.map((cell, i) => (
-				<li
-					key={i}
-					className={styles['field__cell']}
-					onClick={() => handleClick(i)}
-				>
-					{cell}
-				</li>
-			))}
-		</div>
-	);
-};
+const mapStateToProps = (state) => ({ field: state.field });
 
-FieldLayout.propTypes = {
-	handleClick: PropTypes.func,
-};
+export const FieldLayout = connect(mapStateToProps)(FieldLayoutContainer);

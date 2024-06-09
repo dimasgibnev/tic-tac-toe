@@ -1,20 +1,30 @@
-import styles from './InformationLayout.module.css';
-import { store } from '../../store';
+import { connect } from 'react-redux';
+import { Component } from 'react';
 
-export const InformationLayout = () => {
-	const {isDraw, isGameEnded, currentPlayer } = store.getState()
+class InformationLayoutContainer extends Component {
+	render() {
+		return (
+			<div className='bg-slate-200 h-1/5 w-full p-2 text-center'>
+				<p className='block mb-1 font-bold'>
+					{this.props.isDraw
+						? this.props.isGameEnded
+							? 'Ничья'
+							: ''
+						: this.props.isGameEnded
+							? `Победил игрок: ${this.props.currentPlayer}`
+							: `Ходит игрок: ${this.props.currentPlayer}`}
+				</p>
+			</div>
+		);
+	}
+}
 
-	return (
-		<div className={styles.information}>
-			<p className={styles['information__text']}>
-				{isDraw
-					? isGameEnded
-						? 'Ничья'
-						: ''
-					: isGameEnded
-						? `Победил игрок: ${currentPlayer}`
-						: `Ходит игрок: ${currentPlayer}`}
-			</p>
-		</div>
-	);
-};
+const mapStateToProps = (state) => ({
+	isDraw: state.isDraw,
+	isGameEnded: state.isGameEnded,
+	currentPlayer: state.currentPlayer,
+});
+
+export const InformationLayout = connect(mapStateToProps)(
+	InformationLayoutContainer,
+);
