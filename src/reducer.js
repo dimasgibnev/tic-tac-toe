@@ -7,7 +7,7 @@ import {
 } from './constants';
 import { defaultState } from './state';
 
-export const appReducer = (state = defaultState, action) => {
+export const reducer = (state = defaultState, action) => {
 	const { type, payload } = action;
 
 	switch (type) {
